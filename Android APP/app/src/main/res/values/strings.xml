@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">用具控制</string>
+    <string name="stratt">启动电平</string>
+    <string name="jr">加热设备GPIOID</string>
+    <string name="wl">最小温度</string>
+    <string name="wh">最大温度</string>
+    <string name="sl">最小湿度</string>
+    <string name="sh">最大湿度</string>
+    <string name="z">控制列表</string>
+    <string name="wz">null</string>
+    <string name="connect">连接</string>
+    <string name="w">请输入IP地址</string>
+    <string name="action_settings">Settings</string>
+</resources>
