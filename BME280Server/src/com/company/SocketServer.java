@@ -9,7 +9,7 @@ public class SocketServer implements Runnable {
     private DataInputStream dis;
     private DataOutputStream dos;
 
-    SocketServer(Socket s, BME280Jni b) throws IOException {
+    SocketServer(Socket s) throws IOException {
         this.s = s;
         dis = new DataInputStream(s.getInputStream());
         dos = new DataOutputStream(s.getOutputStream());
@@ -18,17 +18,18 @@ public class SocketServer implements Runnable {
             @Override
             public void run() {
                 try {
-                    String d = b.BME280GetData();
-                    double data = Double.parseDouble(d.split(",")[0]);
-                    dos.writeUTF("Data:" + d);
-                    if (data < Main.wl) {
-                        dos.writeUTF("Device:加温中");
-                    }
-                    if (data > Main.wl && data < Main.wh) {
-                        dos.writeUTF("Device:温度正常");
-                    }else{
-                        if (data > Main.wh) {
-                            dos.writeUTF("Device:当前温度过高");
+                    if(Main.data!=null) {
+                        double data1 = Double.parseDouble(Main.data.split(",")[0]);
+                        dos.writeUTF("Data:" + Main.data);
+                        if (data1 < Main.wl) {
+                            dos.writeUTF("Device:加温中");
+                        }
+                        if (data1 > Main.wl && data1 < Main.wh) {
+                            dos.writeUTF("Device:温度正常");
+                        } else {
+                            if (data1 > Main.wh) {
+                                dos.writeUTF("Device:当前温度过高");
+                            }
                         }
                     }
                 } catch (Exception e) {
@@ -40,7 +41,7 @@ public class SocketServer implements Runnable {
                     }
                 }
             }
-        }, 0, 1000);
+        }, 0, 3500);
     }
 
     @Override

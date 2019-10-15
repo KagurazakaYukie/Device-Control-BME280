@@ -1,7 +1,6 @@
 package com.company;
 
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.Timer;
@@ -10,6 +9,7 @@ import java.util.TimerTask;
 public class Main {
     static double wl = 25, wh = 28, sl = 40, sh = 60;
     static int s = 0, j = 1, wkqid = 12;
+    static String data=null;
     static ArrayList<Socket> arrayList = new ArrayList<>();
 
     static {
@@ -44,21 +44,21 @@ public class Main {
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    String d = b.BME280GetData();
-                    double data = Double.parseDouble(d.split(",")[0]);
-                    if (data > Main.wh) {
+                    data = b.BME280GetData();
+                    double data1 = Double.parseDouble(data.split(",")[0]);
+                    if (data1 > Main.wh) {
                         b.GPIOSetPin(Main.wkqid, Main.s);
                     }
-                    if (data < Main.wl) {
+                    if (data1 < Main.wl) {
                         b.GPIOSetPin(Main.wkqid, Main.j);
                     }
                 }
-            }, 0, 1000);
+            }, 0, 3000);
             ServerSocket ss = new ServerSocket(10666);
             while (true) {
                 Socket s = ss.accept();
                 arrayList.add(s);
-                new Thread(new SocketServer(s, b)).start();
+                new Thread(new SocketServer(s)).start();
                 System.out.println(arrayList.size());
             }
         } catch (Exception e) {
