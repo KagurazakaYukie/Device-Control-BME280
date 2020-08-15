@@ -1,4 +1,8 @@
 # device-control-BME280
+
+[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
+
+
 一个蚂蚁挂机饲养的项目
 
 我主要是懒着喂这个那个 目前是写了 温度控制这一块，其他功能暂时没搞，以后慢慢来。
